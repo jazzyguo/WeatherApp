@@ -1,0 +1,11 @@
+// creates media query
+@mixin breakpoint-min($size: '') {
+    @if ($size !='') {
+        @media screen and (min-width: map-get($breakpoints, $size)) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
