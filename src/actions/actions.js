@@ -25,6 +25,12 @@ export function receiveWeather(data) {
   };
 }
 
+export function receiveForecast(data) {
+  return {
+    type: types.RECEIVE_FORECAST, 
+    payload: data.data
+  };
+}
 /* fetches current weather on city name
  */
 export function getCurrrentWeather(city){
@@ -49,6 +55,30 @@ export function getCurrrentWeather(city){
   }
 }
 
+/* fetches forecast on city name
+ */
+export function getForecastWeather(city) {
+  let url;
+  const cityID = cityIDs[city];
+
+  url = `${FORECAST_URL}${apiKey}&id=${cityID}&units=imperial`
+
+  return function action(dispatch) {
+    dispatch({ 
+        type: types.GET_FORECAST
+    })
+
+    const request = axios({
+     method: 'GET',
+     url: url
+    });
+    
+    return request.then(
+      response => dispatch(receiveForecast(response))
+    )
+  }
+}
+
 export function changeCity(index) {
 
   return {
@@ -56,3 +86,4 @@ export function changeCity(index) {
     index
   };
 }
+
