@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getCurrrentWeather } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { convertTemp, toTitleCase } from '../../util/utils';
-import { bindAll} from 'lodash';
+import { bindAll, debounce } from 'lodash';
 import BGImage from '../BGImage/BGImage';
 import './Overview.css';
 
@@ -20,6 +20,8 @@ class Overview extends PureComponent {
   	this.state = {
   		metric: false // flag for F/C conversion
   	}
+
+    props.actions.getCurrrentWeather = debounce(props.actions.getCurrrentWeather, 500);
   }
 
   componentWillMount() {
@@ -36,6 +38,8 @@ class Overview extends PureComponent {
     }
   }
 
+  /* changes between imperial and metric scale
+   */
   _changeScale() {
   	this.setState({metric: !this.state.metric})
   }
@@ -57,8 +61,8 @@ class Overview extends PureComponent {
       			   className="overview__header-temp">
       			<img src={`/img/icons/${weather[0].icon}.png`} alt=""/>
 	      		{!metric 
-	      			? (<span>{ main.temp }&#8457;</span>) 
-	     				: (<span>{ convertTemp(main.temp) }&#8451;</span>)
+	      			? (<span>{ ~~main.temp }&#8457;</span>) 
+	     				: (<span>{ ~~convertTemp(main.temp) }&#8451;</span>)
 	      		}
       		</div>
           </React.Fragment>

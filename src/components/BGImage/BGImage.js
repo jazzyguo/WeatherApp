@@ -14,6 +14,11 @@ class BGImage extends PureComponent {
 
     this.prevImageType = "";
   }
+  
+  /* openweather api differentiates between
+   * weather types on an ID
+   * this uses that ID to fetch different bg images
+   */
   _fetchImage(){
   	const { type, daytime, loading } = this.props;
   	let imageType;
@@ -38,15 +43,14 @@ class BGImage extends PureComponent {
           break;
         case 7:
           imageType = 'mist';
-          break;
         case 8:
           daytime 
             ? imageType = 'cloudy-d'
             : imageType = 'cloudy-n';
           break;
-        default:
-          imageType = this.prevImageType;
       }
+    }
+    if(imageType) {
       this.prevImageType = imageType;
     }
     return (
