@@ -9,3 +9,7 @@
         @content;
     }
 }
+
+@mixin fontsize($size: '') {
+	font-size: map-get($fontsizes, $size);
+}

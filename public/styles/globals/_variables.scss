@@ -1,0 +1,21 @@
+/* BREAKPOINTS  */
+$breakpoint-xs: 375px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 600px;
+$breakpoint-lg: 840px;
+$breakpoint-xl: 1200px;
+
+$breakpoints: (
+  xs: $breakpoint-xs,
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: $breakpoint-xl
+);
+
+$fontsizes: (
+  sm: 16px,
+  md: 20px,
+  lg: 32px,
+  xl: 44px
+);

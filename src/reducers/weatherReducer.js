@@ -2,7 +2,7 @@ import { RECEIVE_WEATHER, GET_CURRENT_WEATHER } from '../actions/actionTypes';
 
 const initState = {
 	currentWeather: {},
-  loading: false
+  loading: true
 };
 
 export default function weatherReducer(state = initState, action) {

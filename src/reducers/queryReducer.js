@@ -1,13 +1,10 @@
 import { CHANGE_CITY } from '../actions/actionTypes';
+import { indexOf } from 'lodash';
 
-/*********** 
-five cities for project specs
-New York, London, Paris, Singapore, San Francisco
-************/
-const cityIDs = [5128581];
+const citiesArray = ['New York', 'London', 'Paris', 'Singapore', 'San Francisco'];
 
 const initState = {
-	query: cityIDs[0] // default NYC ID
+	query: citiesArray[0]
 };
 
 export default function queryReducer(state = initState, action) {
@@ -16,7 +13,8 @@ export default function queryReducer(state = initState, action) {
 
     case CHANGE_CITY:
     	newState = Object.assign({}, state, {
-        query: ''
+        query: citiesArray[action.index],
+        index: action.index
       });
     	break;
 
