@@ -19,19 +19,19 @@ class BGImage extends PureComponent {
   	let imageType;
 
   	if(type === 800) {
-  		daytime 
-  			? imageType = 'clear-d'
-  			: imageType = 'clear-n';
-  	} else {
-	  	switch(parseInt((type + '').charAt(0), 10)) {
-	  		case 2:
-	  			imageType = 'thunder';
-  				break;
+      daytime 
+        ? imageType = 'clear-d'
+        : imageType = 'clear-n';
+    } else {
+      switch(parseInt((type + '').charAt(0), 10)) {
+        case 2:
+          imageType = 'thunder';
+          break;
         case 3:
           imageType = 'rain';
           break;
-	  		case 5:
-	  			imageType = 'rain';
+        case 5:
+          imageType = 'rain';
           break;
         case 6:;
           imageType = 'snow';
@@ -39,17 +39,17 @@ class BGImage extends PureComponent {
         case 7:
           imageType = 'mist';
           break;
-	  		case 8:
-	  			daytime 
-  					? imageType = 'cloudy-d'
-  					: imageType = 'cloudy-n';
-  				break;
+        case 8:
+          daytime 
+            ? imageType = 'cloudy-d'
+            : imageType = 'cloudy-n';
+          break;
         default:
           imageType = this.prevImageType;
-	  	}
+      }
       this.prevImageType = imageType;
-  	}
-  	return (
+    }
+    return (
       <img src={`/img/bg/${!loading ? imageType : this.prevImageType}.png`} alt=""/>
   	);
   }

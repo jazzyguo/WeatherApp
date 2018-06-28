@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 import axios from 'axios';
 
-const CURRENT_WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?';
-const FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast?';
+const CURRENT_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
+const FORECAST_URL = 'https://api.openweathermap.org/data/2.5/forecast?';
 const apiKey = '&APPID=20dfab14fef55808617b787eaf7473a9';
 
 /*********** 
