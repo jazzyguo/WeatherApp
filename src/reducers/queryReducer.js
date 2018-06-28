@@ -1,5 +1,4 @@
 import { CHANGE_CITY } from '../actions/actionTypes';
-import { indexOf } from 'lodash';
 
 const citiesArray = ['New York', 'London', 'Paris', 'Singapore', 'San Francisco'];
 

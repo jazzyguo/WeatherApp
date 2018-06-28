@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { bindAll } from 'lodash';
 import { Carousel } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import { changeCity } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import './TextCarousel.css';
 
-class TextCarousel extends Component {
+class TextCarousel extends PureComponent {
   constructor(props, context) {
     super(props);
 
@@ -22,37 +22,41 @@ class TextCarousel extends Component {
 
   render() {
     return (
-    	<Carousel
-    		onSelect={this._handleSelect}
-    		indicators={false}
-    		interval={null}
-    		defaultActiveIndex={this.props.index}
-    	>
-    		<Carousel.Item>
-    			<span>New York</span>
-    		</Carousel.Item>
-    		<Carousel.Item>
-    			<span>London</span>
-    		</Carousel.Item>
-    		<Carousel.Item>
-    			<span>Paris</span>
-    		</Carousel.Item>
-    		<Carousel.Item>
-    			<span>Singapore</span>
-    		</Carousel.Item>
-    		<Carousel.Item>
-    			<span>San Francisco</span>
-    		</Carousel.Item>
-    	</Carousel>
+      <div className="carousel__container">
+      	<Carousel
+      		onSelect={this._handleSelect}
+      		indicators={false}
+      		interval={null}
+      		activeIndex={this.props.index}
+      	>
+      		<Carousel.Item>
+      			<span>New York</span>
+      		</Carousel.Item>
+      		<Carousel.Item>
+      			<span>London</span>
+      		</Carousel.Item>
+      		<Carousel.Item>
+      			<span>Paris</span>
+      		</Carousel.Item>
+      		<Carousel.Item>
+      			<span>Singapore</span>
+      		</Carousel.Item>
+      		<Carousel.Item>
+      			<span>San Francisco</span>
+      		</Carousel.Item>
+      	</Carousel>
+      </div>
     );
   }
 }
 
 /*
  * @ {changeCity} - function used to change current city
+ * @ {index} - maintains active carousel index
  */
 TextCarousel.propTypes = {
-  changeCity: PropTypes.func
+  changeCity: PropTypes.func,
+  index: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
