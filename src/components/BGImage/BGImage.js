@@ -20,7 +20,9 @@ class BGImage extends PureComponent {
    * this uses that ID to fetch different bg images
    */
   _fetchImage(){
-  	const { type, daytime, loading } = this.props;
+  	const { loading, currentWeather: { weather } } = this.props;
+    const type = !loading ? weather[0].id : null;
+    const daytime = !loading ? weather[0].icon.includes('d') : null;
   	let imageType;
 
   	if(type === 800) {
@@ -43,11 +45,14 @@ class BGImage extends PureComponent {
           break;
         case 7:
           imageType = 'mist';
+          break;
         case 8:
           daytime 
             ? imageType = 'cloudy-d'
             : imageType = 'cloudy-n';
           break;
+        default:
+          imageType = null;
       }
     }
     if(imageType) {
@@ -78,12 +83,14 @@ class BGImage extends PureComponent {
 BGImage.propTypes = {
 	type: PropTypes.number,
 	daytime: PropTypes.bool,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  CurrentWeather: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.weather.loading
+    loading: state.weather.loading,
+    currentWeather: state.weather.currentWeather
   };
 }
 

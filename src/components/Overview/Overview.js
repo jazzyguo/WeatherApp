@@ -5,7 +5,6 @@ import { getCurrrentWeather } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { convertTemp, toTitleCase } from '../../util/utils';
 import { bindAll, debounce } from 'lodash';
-import BGImage from '../BGImage/BGImage';
 import './Overview.css';
 
 class Overview extends PureComponent {
@@ -44,32 +43,37 @@ class Overview extends PureComponent {
   	this.setState({metric: !this.state.metric})
   }
 
+  _renderHeader() {
+    const { metric } = this.state;
+    const { currentWeather: { weather, main } } = this.props;
+
+    return (
+      <React.Fragment>
+        <span className="overview__header-desc">
+          { toTitleCase(weather[0].description) }
+        </span>
+        <div onClick={this._changeScale} 
+             className="overview__header-temp">
+          <img src={`/img/icons/${weather[0].icon}.png`} alt=""/>
+          {!metric 
+            ? (<span>{ ~~main.temp }&#8457;</span>) 
+            : (<span>{ ~~convertTemp(main.temp) }&#8451;</span>)
+          }
+        </div>
+      </React.Fragment>
+    );
+  }
+
   render() {
-  	const { metric } = this.state;
-  	const { currentWeather, loading } = this.props;
-  	const { weather, main } = currentWeather;
+  	const { loading } = this.props;
 
     return (
       <div className="overview">
       	<div className="overview__header">
-        {!loading &&
-          <React.Fragment>
-      		<span className="overview__header-desc">
-      			{ toTitleCase(weather[0].description) }
-      		</span>
-      		<div onClick={this._changeScale} 
-      			   className="overview__header-temp">
-      			<img src={`/img/icons/${weather[0].icon}.png`} alt=""/>
-	      		{!metric 
-	      			? (<span>{ ~~main.temp }&#8457;</span>) 
-	     				: (<span>{ ~~convertTemp(main.temp) }&#8451;</span>)
-	      		}
-      		</div>
-          </React.Fragment>
-        }
+          {!loading && 
+            this._renderHeader() 
+          }
       	</div> 
-	      <BGImage type={!loading ? weather[0].id : null} 
-	      				 daytime={!loading ? weather[0].icon.includes('d') : null}/>
       </div>
     );
   }

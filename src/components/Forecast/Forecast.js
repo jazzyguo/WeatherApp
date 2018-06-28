@@ -31,7 +31,7 @@ class Forecast extends PureComponent {
 
     return (
       <div className="forecast">
-
+        FORECASST
       </div>
     );
   }
