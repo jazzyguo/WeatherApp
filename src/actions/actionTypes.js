@@ -5,3 +5,5 @@ export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
 export const GET_FORECAST = 'GET_FORECAST';
 
 export const CHANGE_CITY = 'CHANGE_CITY';
+
+export const CHANGE_SCALE = 'CHANGE_SCALE';

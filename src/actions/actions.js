@@ -64,8 +64,8 @@ export function getForecastWeather(city) {
   url = `${FORECAST_URL}${apiKey}&id=${cityID}&units=imperial`
 
   return function action(dispatch) {
-    dispatch({ 
-        type: types.GET_FORECAST
+    dispatch({
+      type: types.GET_FORECAST
     })
 
     const request = axios({
@@ -87,3 +87,9 @@ export function changeCity(index) {
   };
 }
 
+export function changeScale() {
+
+  return {
+    type: types.CHANGE_SCALE
+  };
+}

@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrrentWeather } from '../../actions/actions';
+import { getCurrrentWeather, changeScale } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { convertTemp, toTitleCase } from '../../util/utils';
 import { bindAll, debounce } from 'lodash';
@@ -16,10 +16,6 @@ class Header extends PureComponent {
   	bindAll(this, [
   		'_changeScale'
   	]);
-
-  	this.state = {
-  		metric: false // flag for F/C conversion
-  	}
 
     props.actions.getCurrrentWeather = debounce(props.actions.getCurrrentWeather, 500);
   }
@@ -41,27 +37,26 @@ class Header extends PureComponent {
   /* changes between imperial and metric scale
    */
   _changeScale() {
-  	this.setState({metric: !this.state.metric})
+    this.props.actions.changeScale();
   }
 
   _renderHeader() {
-    const { metric } = this.state;
-    const { currentWeather: { weather, main } } = this.props;
+    const { currentWeather: { weather, main }, celsius } = this.props;
 
     return (
-      <React.Fragment>
-        <span className="overview__header-desc">
+      <Fragment>
+        <span className="header__top-desc">
           { toTitleCase(weather[0].description) }
         </span>
         <div onClick={this._changeScale} 
-             className="overview__header-temp">
+             className="header__top-temp">
           <img src={`/img/icons/${weather[0].icon}.png`} alt=""/>
-          {!metric 
+          {!celsius 
             ? (<span>{ ~~main.temp }&#8457;</span>) 
             : (<span>{ ~~convertTemp(main.temp) }&#8451;</span>)
           }
         </div>
-      </React.Fragment>
+      </Fragment>
     );
   }
 
@@ -69,9 +64,9 @@ class Header extends PureComponent {
   	const { loading } = this.props;
 
     return (
-        <div className="overview">
+        <div className="header">
           <TextCarousel />
-        	<div className="overview__header">
+        	<div className="header__top">
             {!loading && 
               this._renderHeader() 
             }
@@ -91,6 +86,7 @@ Header.propTypes = {
 	actions: PropTypes.object,
   currentWeather: PropTypes.object,
   loading: PropTypes.bool,
+  celsius: PropTypes.bool,
   query: PropTypes.oneOfType([
   	PropTypes.string,
   	PropTypes.number
@@ -101,14 +97,16 @@ const mapStateToProps = (state) => {
   return {
     currentWeather: state.weather.currentWeather,
     loading: state.weather.loading,
-    query: state.query.query
+    query: state.query.query,
+    celsius: state.weather.celsius
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({
-      getCurrrentWeather
+      getCurrrentWeather,
+      changeScale
     }, dispatch)
   };
 }

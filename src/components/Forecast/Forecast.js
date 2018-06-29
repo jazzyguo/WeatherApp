@@ -5,7 +5,6 @@ import { getForecastWeather } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { convertTemp } from '../../util/utils';
 import { bindAll, debounce } from 'lodash';
-import BGImage from '../BGImage/BGImage';
 import { Link } from 'react-router-dom'
 import './Forecast.css';
 

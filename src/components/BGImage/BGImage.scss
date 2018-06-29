@@ -1,18 +1,23 @@
+@import '../../../public/styles/includes';
 .bg-image {
-	position: absolute;
-	top: 0;
-	z-index: -1;
-	height: 100vh;
-	width: 100vw;
-	img {
-		@extend .bg-image;
-		object-fit: cover;
-	}
-	span {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		color: #FFF;
-		padding: 5px 10px;
-	}
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    height: 200vh;
+    width: 100vw;
+    @include breakpoint-min(lg) {
+        height: 100vh;
+    }
+    img {
+        @extend .bg-image;
+        object-fit: cover;
+    }
+    span {
+        @include fontsize(xs);
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #FFF;
+        padding: 5px 10px;
+    }
 }

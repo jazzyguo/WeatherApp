@@ -1,10 +1,10 @@
 @import '../../../public/styles/includes';
-.overview {
-    &__header {
+.header {
+    &__top {
         display: flex;
         flex-direction: column;
         text-align: center;
-        background-color: rgba(0, 0, 0, .2);
+        background-color: $bgColor;
         color: #FFF;
         padding: 0 0 10px;
         width: 100%;

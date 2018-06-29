@@ -1,10 +1,13 @@
 import { GET_CURRENT_WEATHER, RECEIVE_WEATHER,
-         GET_FORECAST, RECEIVE_FORECAST } from '../actions/actionTypes';
+         GET_FORECAST, RECEIVE_FORECAST,
+         CHANGE_SCALE } from '../actions/actionTypes';
 
 const initState = {
 	currentWeather: {},
+  forecast: {},
   loading: true,
-  forecastLoading: true
+  forecastLoading: true,
+  celsius: false
 };
 
 export default function weatherReducer(state = initState, action) {
@@ -34,6 +37,12 @@ export default function weatherReducer(state = initState, action) {
     case GET_FORECAST:
       newState = Object.assign({}, state, {
         forecastLoading: true
+      });
+      break;
+
+    case CHANGE_SCALE:
+      newState = Object.assign({}, state, {
+        celsius: !state.celsius
       });
       break;
     default:

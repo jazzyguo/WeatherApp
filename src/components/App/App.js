@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import './App.css';
 import Header from '../Header/Header';
 import Overview from '../Overview/Overview';
 import Forecast from '../Forecast/Forecast';

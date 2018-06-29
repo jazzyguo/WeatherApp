@@ -3,7 +3,7 @@
     &__container {
         width: 100%;
         margin: 75px auto 0;
-        background-color: rgba(0, 0, 0, .2);
+        background-color: $bgColor;
         text-align: center;
         @include breakpoint-min(xs) {
         	width: 350px;
