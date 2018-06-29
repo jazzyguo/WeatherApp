@@ -11,22 +11,35 @@ class Overview extends PureComponent {
    * High/Low Temp & Humidity
    */
   _renderMainInfo() {
-    const { currentWeather: { dt, main }, celsius } = this.props;
+    const { currentWeather: { 
+      dt, main: { humidity, temp_max, temp_min } 
+    }, celsius } = this.props;
 
     return (
       <Fragment>
         <span>Last Updated: { unixToTime(dt) }</span>
         {!celsius &&
-          <h1>H {main.temp_max}&deg; / 
-              L {main.temp_min}&deg;</h1>
+          <h1>H {Math.ceil(temp_max)}&deg; / 
+              L {Math.floor(temp_min)}&deg;</h1>
         }
         {celsius &&
-          <h1>H {~~convertTemp(main.temp_max)}&deg; / 
-              L {~~convertTemp(main.temp_min)}&deg;</h1>
+          <h1>H {Math.ceil(convertTemp(temp_max))}&deg; / 
+              L {Math.floor(convertTemp(temp_min))}&deg;</h1>
         }
-        <div className="overview__item-row-1">
+        <div className="overview__item-row-1 humidity">
+          {
+            (humidity >= 90) 
+              ? <i className="fas fa-thermometer-full"></i>
+              : (humidity >= 75 && humidity < 90) 
+                ? <i className="fas fa-thermometer-three-quarters"></i>
+                : (humidity >= 50 && humidity < 75)
+                  ? <i className="fas fa-thermometer-half"></i>
+                  : (humidity >= 25 && humidity < 50)
+                    ? <i className="fas fa-thermometer-quarter"></i>
+                    : <i className="fas fa-thermometer-empty"></i>
+          }
           <span className="title">Humidity</span>
-          <span>{main.humidity}%</span>
+          <span>{humidity}%</span>
         </div>
       </Fragment>
     );
@@ -46,7 +59,7 @@ class Overview extends PureComponent {
             <span>{wind.speed} mph</span>
           </div>
           <div className="overview__item-row-1">
-            <span className="title">Wind Pressue</span>
+            <span className="title">Wind Pressure</span>
             <span>{main.pressure} hPa</span>
           </div>
         </div>
@@ -67,18 +80,20 @@ class Overview extends PureComponent {
   /* Sunrise / Sunset info
    */
   _renderSunrise() {
-    const {currentWeather: { sys } } = this.props;
+    const {currentWeather: { sys }, loading } = this.props;
 
     return (
       <Fragment>
         <div className="overview__item-row-2 sunrise__row-2">
           <div className="overview__item-row-1 sunrise__row-1">
-            <span>img</span>
+            <img src="/img/sunset.png" alt="sunset"/>
           </div>
-          <div className="overview__item-row-1 sunrise__row-1">
-            <span>{unixToTime(sys.sunrise)}</span>
-            <span>{unixToTime(sys.sunset)}</span>
-          </div>
+          {!loading &&
+            <div className="overview__item-row-1 sunrise__row-1">
+              <span>{unixToTime(sys.sunrise)}</span>
+              <span>{unixToTime(sys.sunset)}</span>
+            </div>
+          }
         </div>
       </Fragment>
     );
@@ -101,9 +116,7 @@ class Overview extends PureComponent {
             }
           </div>
           <div className="overview__item sunrise">
-            {!loading &&
-              this._renderSunrise()  
-            }
+            { this._renderSunrise() }
           </div>
         </div>
         <Link className="overview__link"
@@ -114,8 +127,8 @@ class Overview extends PureComponent {
 }
 
 Overview.propTypes = {
-   currentWeather: PropTypes.object,
-   loading: PropTypes.bool,
+  currentWeather: PropTypes.object,
+  loading: PropTypes.bool,
   celsius: PropTypes.bool,
 };
 

@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getForecastWeather } from '../../actions/actions';
 import PropTypes from 'prop-types';
-import { convertTemp } from '../../util/utils';
-import { bindAll, debounce } from 'lodash';
+import { convertTemp, calcDailyValues,
+         dateToString, getWeekDay } from '../../util/utils';
+import { debounce } from 'lodash';
 import { Link } from 'react-router-dom'
 import './Forecast.css';
 
@@ -12,10 +13,6 @@ class Forecast extends PureComponent {
 
 	constructor(props, context) {
   	super(props);
-
-  	bindAll(this, [
-
-  	]);
 
     props.actions.getForecastWeather = debounce(props.actions.getForecastWeather, 500);
   }
@@ -31,15 +28,87 @@ class Forecast extends PureComponent {
 
     if(nextProps.query !== query) {
       actions.getForecastWeather(nextProps.query);
-    }
+    }     
+  }
+
+  _renderGridHeader() {
+    return (
+      <Fragment>
+        <div className="forecast__grid-header forecast__grid-col">
+          <div className="forecast__grid-header-day">day</div>
+        </div>
+        <div className="forecast__grid-header forecast__grid-row">
+          <div className="scroll">
+            <span>description</span>
+            <span>high / low</span>
+            <span>wind</span>
+            <span>humidity</span>
+          </div>
+        </div>
+      </Fragment>
+    );
+  }
+
+  /* Takes an object with information regarding the day
+   * Object created from calcDailyValues
+   */
+  _renderGridRow(day, key) {
+    const { celsius } = this.props;
+
+    return(
+      <Fragment key={key}>
+        <div className="forecast__grid-col">
+          <div className="day">
+            <div>
+              <span>
+                {(key===0) ? 'Tonight' : getWeekDay(day.date)}
+              </span>
+              <span class="date">{dateToString(day.date)}</span>
+            </div>
+            <img src={`/img/icons/${day.icon}d.png`} alt={day.description}/>
+          </div>
+        </div>
+        <div className="forecast__grid-row">
+          <div className="scroll">
+            <span>{day.description}</span>
+            {!celsius &&
+              <span>{day.temp_max}&deg; / {day.temp_min}&deg;</span>
+            }
+            {celsius &&
+              <span>
+                {Math.ceil(convertTemp(day.temp_max))}&deg; 
+              / {Math.floor(convertTemp(day.temp_min))}&deg;
+              </span>
+            }
+            <span>{day.wind_speed} mph</span>
+            <span>{day.humidity}%</span>
+          </div>
+        </div>
+      </Fragment>
+    );
   }
 
   render() {
+    const { forecast: { list }, forecastLoading } = this.props;
 
     return (
       <div className="forecast">
-        FORECASST
-        <Link to='/'>OVERVIEW</Link>
+
+        {/*GRID ROW CONSISTS OF ONE COL AND A RESPONSIVE ROW NEXT TO IT*/}
+        <div className="forecast__grid">
+
+          { this._renderGridHeader() }
+
+          {!forecastLoading &&
+            calcDailyValues(list).map((e, i) => (
+              this._renderGridRow(e, i)
+            ))
+          }
+        </div>
+        <Link className="forecast__link"to='/'>
+          <i className="fas fa-arrow-left"></i>
+          OVERVIEW
+        </Link>
       </div>
     );
   }
@@ -57,14 +126,16 @@ Forecast.propTypes = {
   query: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
-  ])
+  ]),
+  celsius: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
     forecast: state.weather.forecast,
-    forecastLoading: state.weather.loading,
-    query: state.query.query
+    forecastLoading: state.weather.forecastLoading,
+    query: state.query.query,
+    celsius: state.weather.celsius
   };
 }
 

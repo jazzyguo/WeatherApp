@@ -31,10 +31,24 @@
         }
         &-row {
             &-1 {
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 .title {
                     font-weight: bold;
+                }
+                &.humidity {
+                    i {
+                        display: flex;
+                        position: absolute;
+                        left: 85px;
+                        top: 0;
+                        bottom: 0;
+                        font-size: 40px;
+                        &:before {
+                            margin: auto;
+                        }
+                    }
                 }
             }
             &-2 {
@@ -56,6 +70,9 @@
                     height: 100px;
                     margin: auto;
                 }
+            }
+            img {
+            	width: 160px;
             }
         }
         &.two-col {
