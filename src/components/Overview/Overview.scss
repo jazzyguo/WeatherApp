@@ -59,19 +59,21 @@
             }
         }
         &.two-col {
-        	display: flex;
-        	flex-direction: column;
-        	justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
     }
     &__link {
+        @include fontsize(md);
         color: #FFF;
         position: absolute;
-        bottom: 20px;
+        bottom: -25px;
         left: 0;
         right: 0;
         width: 200px;
-        margin: auto;
+        margin: 0 auto;
         text-align: center;
+        background-color: $bgColor;
     }
 }
