@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getForecastWeather } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import { convertTemp, calcDailyValues,
-         dateToString, getWeekDay } from '../../util/utils';
+         dateToString, getWeekDay, scrollUp } from '../../util/utils';
 import { debounce } from 'lodash';
 import { Link } from 'react-router-dom'
 import './Forecast.css';
@@ -63,9 +63,10 @@ class Forecast extends PureComponent {
               <span>
                 {(key===0) ? 'Tonight' : getWeekDay(day.date)}
               </span>
-              <span class="date">{dateToString(day.date)}</span>
+              <span className="date">{dateToString(day.date)}</span>
             </div>
-            <img src={`/img/icons/${day.icon}d.png`} alt={day.description}/>
+            <img src={`/img/icons/${day.icon}${(key===0)?'n':'d'}.png`} 
+                 alt={day.description}/>
           </div>
         </div>
         <div className="forecast__grid-row">
@@ -105,9 +106,10 @@ class Forecast extends PureComponent {
             ))
           }
         </div>
-        <Link className="forecast__link"to='/'>
-          <i className="fas fa-arrow-left"></i>
-          OVERVIEW
+        <Link onClick={scrollUp} 
+              className="forecast__link"to='/'>
+              <i className="fas fa-arrow-left"></i>
+              OVERVIEW
         </Link>
       </div>
     );

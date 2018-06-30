@@ -114,3 +114,20 @@ export function getWeekDay(dateString) {
 
 	return weekday;
 }
+
+/* Animates window scrolling to top
+ */
+export function scrollUp() {
+	const step = 60;
+	const d = document.documentElement;
+
+	window.scrollBy(0, -step);
+
+	let scroll = setTimeout(() => {
+		scrollUp()
+	}, 25);
+
+	if(d.scrollTop === 0) {
+		clearTimeout(scroll);
+	}
+}

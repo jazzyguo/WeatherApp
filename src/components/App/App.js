@@ -14,8 +14,8 @@ class App extends PureComponent {
       	<Header />
       	<BGImage />
         <Switch>
-      		<Route exact path='/' component={Overview}/>
-     		<Route path='/forecast' component={Forecast}/>
+          <Route exact path='/' component={Overview}/>
+          <Route path='/forecast' component={Forecast}/>
     	</Switch>
       </div>
     );

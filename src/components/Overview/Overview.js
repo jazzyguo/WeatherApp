@@ -1,8 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { convertTemp, unixToTime } from '../../util/utils';
-import { Link } from 'react-router-dom'
+import { convertTemp, unixToTime, scrollUp } from '../../util/utils';
+import { Link } from 'react-router-dom';
 import './Overview.css';
 
 class Overview extends PureComponent {
@@ -120,7 +120,9 @@ class Overview extends PureComponent {
           </div>
         </div>
         <Link className="overview__link"
-              to='/forecast'>5 DAY FORECAST</Link>
+              to='/forecast'
+              onClick={scrollUp}>
+              5 DAY FORECAST</Link>
       </div>
     );
   }
