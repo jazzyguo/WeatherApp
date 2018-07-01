@@ -1,16 +1,22 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import Header from '../Header/Header';
+import Overview from '../Overview/Overview';
+import Forecast from '../Forecast/Forecast';
+import BGImage from '../BGImage/BGImage';
+import { Switch, Route } from 'react-router-dom'
 import './App.css';
 
-class App extends Component {
+class App extends PureComponent {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="app">
+      	<Header />
+      	<BGImage />
+        <Switch>
+          <Route exact path='/' component={Overview}/>
+          <Route path='/forecast' component={Forecast}/>
+    	</Switch>
       </div>
     );
   }

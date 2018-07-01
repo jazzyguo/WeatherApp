@@ -1,0 +1,96 @@
+@import '../../../public/styles/includes';
+.overview {
+    position: relative;
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding-bottom: 50px;
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-row-gap: 25px;
+    }
+    &__item {
+        @include fontsize(md);
+        padding: 20px 10px;
+        background-color: $boxColor;
+        width: 100%;
+        height: 200px;
+        grid-column: span 12;
+        margin: auto;
+        text-align: center;
+        @include breakpoint-min(xs) {
+            width: 350px;
+        }
+        /* Grid col span breakpoints */
+        @include breakpoint-min(lg) {
+            margin: auto;
+            grid-column: span 6;
+        }
+        @include breakpoint-min(xl) {
+            grid-column: span 4;
+        }
+        &-row {
+            &-1 {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                .title {
+                    font-weight: bold;
+                }
+                &.humidity {
+                    i {
+                        display: flex;
+                        position: absolute;
+                        left: 85px;
+                        top: 0;
+                        bottom: 0;
+                        font-size: 40px;
+                        &:before {
+                            margin: auto;
+                        }
+                    }
+                }
+            }
+            &-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        h1 {
+            @include fontsize(lg);
+        }
+        &.sunrise {
+            display: flex;
+            .sunrise__row {
+                &-1 {
+                    height: 100px;
+                    justify-content: space-between;
+                }
+                &-2 {
+                    height: 100px;
+                    margin: auto;
+                }
+            }
+            img {
+                width: 160px;
+            }
+        }
+        &.two-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+    &__link {
+        @include fontsize(md);
+        color: #FFF;
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        right: 0;
+        width: 200px;
+        margin: 0 auto;
+        text-align: center;
+        background-color: $bgColor;
+    }
+}

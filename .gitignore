@@ -24,3 +24,8 @@ public/*.css.map
 public/*.css
 src/components/**/*.css
 src/components/**/**/.css
+.sass-cache
+
+firebase.json
+.firebaserc
+firebase-debug.log

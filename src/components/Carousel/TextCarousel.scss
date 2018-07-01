@@ -1,0 +1,23 @@
+@import '../../../public/styles/includes';
+.carousel {
+    &__container {
+        width: 100%;
+        margin: 75px auto 0;
+        background-color: $bgColor;
+        text-align: center;
+        @include breakpoint-min(xs) {
+        	width: 350px;
+        }
+    }
+    .glyphicon {
+        position: absolute;
+        top: 20px;
+        width: auto;
+        font-size: 20px;
+    }
+    .item {
+        color: #FFF;
+        @include fontsize(lg);
+    }
+
+}
