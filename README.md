@@ -5,3 +5,5 @@ App which simply displays five cities, with pages linked to offer weather insigh
 Created with create-react-app. 
 
 Uses https://openweathermap.org/api
+
+Hosted at https://react-weather-app-db779.firebaseapp.com/forecast
