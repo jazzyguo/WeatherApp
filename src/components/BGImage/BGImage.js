@@ -20,12 +20,12 @@ class BGImage extends PureComponent {
    * this uses that ID to fetch different bg images
    */
   _fetchImage(){
-  	const { loading, currentWeather: { weather } } = this.props;
+    const { loading, currentWeather: { weather } } = this.props;
     const type = !loading ? weather[0].id : null;
     const daytime = !loading ? weather[0].icon.includes('d') : null;
-  	let imageType;
+    let imageType;
 
-  	if(type === 800) {
+    if(type === 800) {
       daytime 
         ? imageType = 'clear-d'
         : imageType = 'clear-n';
@@ -60,13 +60,13 @@ class BGImage extends PureComponent {
     }
     return (
       <img src={`/img/bg/${!loading ? imageType : this.prevImageType}.png`} alt=""/>
-  	);
+    );
   }
 
   render() {
     return (
       <div className="bg-image">
-       	{ this._fetchImage() }
+        { this._fetchImage() }
         <span>Images from 
           <a href="https://www.pexels.com"> https://www.pexels.com</a>
         </span>
@@ -81,8 +81,8 @@ class BGImage extends PureComponent {
  * @ {loading} - tracked to manage prev saved image
  */
 BGImage.propTypes = {
-	type: PropTypes.number,
-	daytime: PropTypes.bool,
+  type: PropTypes.number,
+  daytime: PropTypes.bool,
   loading: PropTypes.bool,
   CurrentWeather: PropTypes.object
 };

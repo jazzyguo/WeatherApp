@@ -1,0 +1,11 @@
+/* ANIMS */
+.slide-appear {
+    transform: translateY(25%);
+    opacity: 0;
+    transition: all .4s ease-in;
+    &-active {
+        opacity: 1;
+        transform: translateY(0%);
+        transition: all .4s ease-in;
+    }
+}

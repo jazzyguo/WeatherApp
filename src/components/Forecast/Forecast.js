@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import { convertTemp, calcDailyValues,
          dateToString, getWeekDay, scrollUp } from '../../util/utils';
 import { debounce } from 'lodash';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './Forecast.css';
 
 class Forecast extends PureComponent {
@@ -19,7 +20,7 @@ class Forecast extends PureComponent {
 
   componentWillMount() { 
     const { actions, query } = this.props;
-
+    
     actions.getForecastWeather(query);
   }
 
@@ -93,25 +94,32 @@ class Forecast extends PureComponent {
     const { forecast: { list }, forecastLoading } = this.props;
 
     return (
-      <div className="forecast">
+      <ReactCSSTransitionGroup
+        transitionName="slide"
+        transitionAppear={true}
+        transitionAppearTimeout={400}
+        transitionEnter={false}
+        transitionLeave={false}>
+        <div className="forecast">
 
-        {/*GRID ROW CONSISTS OF ONE COL AND A RESPONSIVE ROW NEXT TO IT*/}
-        <div className="forecast__grid">
+          {/*GRID ROW CONSISTS OF ONE COL AND A RESPONSIVE ROW NEXT TO IT*/}
+          <div className="forecast__grid">
 
-          { this._renderGridHeader() }
+            { this._renderGridHeader() }
 
-          {!forecastLoading &&
-            calcDailyValues(list).map((e, i) => (
-              this._renderGridRow(e, i)
-            ))
-          }
+            {!forecastLoading &&
+              calcDailyValues(list).map((e, i) => (
+                this._renderGridRow(e, i)
+              ))
+            }
+          </div>
+          <Link onClick={scrollUp} 
+                className="forecast__link"to='/'>
+                <i className="fas fa-arrow-left"></i>
+                OVERVIEW
+          </Link>
         </div>
-        <Link onClick={scrollUp} 
-              className="forecast__link"to='/'>
-              <i className="fas fa-arrow-left"></i>
-              OVERVIEW
-        </Link>
-      </div>
+      </ReactCSSTransitionGroup>
     );
   }
 }

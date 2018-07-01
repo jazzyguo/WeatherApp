@@ -3,8 +3,11 @@
     position: absolute;
     top: 0;
     z-index: -1;
-    height: 200vh;
+    height: 220vh;
     width: 100vw;
+    @include breakpoint-min(xs) {
+        height: 195vh;
+    }
     @include breakpoint-min(lg) {
         height: 100vh;
     }

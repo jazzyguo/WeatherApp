@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { convertTemp, unixToTime, scrollUp } from '../../util/utils';
 import { Link } from 'react-router-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './Overview.css';
 
 class Overview extends PureComponent {
@@ -103,27 +104,34 @@ class Overview extends PureComponent {
     const { loading } = this.props;
 
     return (
-      <div className="overview">
-        <div className="overview__grid">
-          <div className="overview__item two-col">
-            {!loading &&
-              this._renderOtherInfo()
-            }
+      <ReactCSSTransitionGroup
+        transitionName="slide"
+        transitionAppear={true}
+        transitionAppearTimeout={400}
+        transitionEnter={false}
+        transitionLeave={false}>       
+        <div className="overview">
+          <div className="overview__grid">
+            <div className="overview__item two-col">
+              {!loading &&
+                this._renderOtherInfo()
+              }
+            </div>
+            <div className="overview__item">
+              {!loading &&
+                this._renderMainInfo()
+              }
+            </div>
+            <div className="overview__item sunrise">
+              { this._renderSunrise() }
+            </div>
           </div>
-          <div className="overview__item">
-            {!loading &&
-              this._renderMainInfo()
-            }
-          </div>
-          <div className="overview__item sunrise">
-            { this._renderSunrise() }
-          </div>
+          <Link className="overview__link"
+                to='/forecast'
+                onClick={scrollUp}>
+                5 DAY FORECAST</Link>
         </div>
-        <Link className="overview__link"
-              to='/forecast'
-              onClick={scrollUp}>
-              5 DAY FORECAST</Link>
-      </div>
+      </ReactCSSTransitionGroup>
     );
   }
 }
