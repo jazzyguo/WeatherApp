@@ -6,4 +6,4 @@ Created with create-react-app and redux.
 
 Uses https://openweathermap.org/api
 
-Hosted at https://react-weather-app-db779.firebaseapp.com/forecast
+Hosted at https://react-weather-app-db779.firebaseapp.com/
